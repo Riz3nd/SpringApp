@@ -1,0 +1,6 @@
+    {
+        "email": "odac96@gmail.com",
+        "password": "358846",
+        "firstName": "Oscar David",
+        "lastName": "Argaez"
+    }
