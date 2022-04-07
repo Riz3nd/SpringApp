@@ -1,6 +1,5 @@
-
 function sendData(path){
-    var myForm = document.getElementById("myform")
+    var myForm = document.getElementById("myForm")
     var formData = new FormData(myForm);
     var jsonData = {};
     //conversion de datos a json
