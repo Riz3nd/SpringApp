@@ -6,6 +6,7 @@ import com.proyecto.app.utils.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.LinkedHashMap;
@@ -20,6 +21,8 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
     private Message message = new Message();
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @RequestMapping(value = "api/users/{id}", method = RequestMethod.GET)
     public ResponseEntity getUser(@PathVariable Long id){
@@ -32,6 +35,7 @@ public class UserController {
     public ResponseEntity createUser(@RequestBody User user){
         Map<String, String> response = new LinkedHashMap<>();
         try{
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
             userRepository.save(user);
             return message.viewMessage(HttpStatus.OK,"success","registered user success!");
         }catch (Exception e){
@@ -53,7 +57,7 @@ public class UserController {
             user.setFirstName(newUser.getFirstName());
             user.setLastName(newUser.getLastName());
             user.setEmail(newUser.getEmail());
-            user.setPassword(newUser.getPassword());
+            user.setPassword(passwordEncoder.encode(newUser.getPassword()));
             userRepository.save(user);
             return message.viewMessage(HttpStatus.OK,"success","user edit success!!");
         }catch (Exception e){
