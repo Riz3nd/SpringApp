@@ -22,7 +22,7 @@ public class AuthController {
     public ResponseEntity login(@RequestBody User userReq){
         try{
             message = new Message();
-            user = userRepository.findByEmail(user.getEmail());
+            user = userRepository.findByEmail(userReq.getEmail());
             if(passwordEncoder.matches(userReq.getPassword(), user.getPassword())) {
                 return message.viewMessage(HttpStatus.OK, "Login", "The user logged in");
             }
