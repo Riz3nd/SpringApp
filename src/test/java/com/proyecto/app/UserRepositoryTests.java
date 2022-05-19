@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.annotation.Rollback;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -20,12 +21,14 @@ public class UserRepositoryTests {
     private TestEntityManager entityManager;
     @Autowired
     private UserRepository repository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Test
     public void testCreateUser(){
         User user = new User();
         user.setEmail("odac1@gmail.com");
-        user.setPassword("123456");
+        user.setPassword(passwordEncoder.encode("123456"));
         user.setFirstName("Oscar");
         user.setLastName("Argaez");
 

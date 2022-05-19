@@ -25,10 +25,10 @@ public class UserController {
     private PasswordEncoder passwordEncoder;
 
     @RequestMapping(value = "api/users/{id}", method = RequestMethod.GET)
-    public ResponseEntity getUser(@PathVariable Long id){
+    public  Optional<User> getUser(@PathVariable Long id){
         Optional<User> foundUser = userRepository.findById(id);
-        if(foundUser.isPresent()) return  message.viewMessage(HttpStatus.OK,"success","User found");
-        return message.viewMessage(HttpStatus.NOT_FOUND,"Not found","User not found");
+        if(foundUser.isPresent()) return  foundUser;
+        return null;
     }
 
     @RequestMapping(value = "api/users", method = RequestMethod.POST)

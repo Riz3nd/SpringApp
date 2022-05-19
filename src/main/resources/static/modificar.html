@@ -38,36 +38,27 @@
                 You should check in on some of those fields below.
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-
-            <div id="datos"></div>
-
             <div class="p-3 mb-2 bg-light text-dark">
-                <h1 class="display-5"><i class="fa-solid fa-list"></i> Listado de usuarios</h1>
+                <h1 class="display-5"><i class="fa-solid fa-user-pen"></i> Modificar Usuario</h1>
             </div>
 
-            <a href="register.html" class="btn btn-outline-success"><i class="fa-solid fa-user-plus"></i></a>
-            <table class="table">
-                <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">First Name</th>
-                    <th scope="col">Last Name</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Action</th>
-                </tr>
-                </thead>
-                <tbody id="listar">
+            <form action="" method="post" id="myForm">
+                <input type="hidden" name="id" id="id">
+                <label for="firstName" class="form-label">First Name</label>
+                <input type="text" class="form-control" name="firstName" id="firstName" required> <br>
+                <label for="lastName"  class="form-label">Last Name</label>
+                <input type="text" class="form-control" name="lastName" id="lastName" required> <br>
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" name="email" id="email" required> <br>
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" required> <br>
+                <button type="button" class="btn btn-outline-warning" onclick="sendData('api/users')">Modificar</button>
+            </form>
 
-                </tbody>
-            </table>
         </div>
     </div>
 </div>
 
 <script src="js/local.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-<script>
-          listar();
-        </script>
 </body>
-</html>
