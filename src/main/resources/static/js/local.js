@@ -195,3 +195,60 @@ function alertas(mensaje, tipo){
     '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
     document.getElementById("datos").innerHTML = alerta;
 }
+
+
+function registerForm(){
+    cadena = '<div class="p-3 mb-2 bg-light text-dark">'+
+                '<h1 class="display-5"><i class="fa-solid fa-user-pen"></i>Registrar Usuario</h1>'+
+                '</div>'+
+
+              '<form action="" method="post" id="myForm">'+
+                '<input type="hidden" name="id" id="id">'+
+                '<label for="firstName" class="form-label">First Name</label>'+
+                '<input type="text" class="form-control" name="firstName" id="firstName" > <br>'+
+                '<label for="lastName"  class="form-label">Last Name</label>'+
+                '<input type="text" class="form-control" name="lastName" id="lastName" > <br>'+
+                '<label for="email" class="form-label">Email</label>'+
+                '<input type="email" class="form-control" name="email" id="email" required > <br>'+
+                '<label for="password" class="form-label">Password</label>'+
+                '<input type="password" class="form-control" id="password" name="password" required> <br>'+
+                '<button type="button" class="btn btn-outline-info" onclick="registrarUsuario()">Registrar</button>'+
+            '</form>';
+            document.getElementById("contentModal").innerHTML = cadena;
+            var myModal = new bootstrap.Modal(document.getElementById('modalUsuario'))
+            myModal.toggle();
+}
+
+
+async function registrarUsuario(){
+    var myForm = document.getElementById("myForm");
+    var formData = new FormData(myForm);
+    var jsonData = {};
+    for(var [k, v] of formData){//convertimos los datos a json
+        jsonData[k] = v;
+    }
+    const request = await fetch("api/users", {
+        method: 'POST',
+        headers:{
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(jsonData)
+    });
+    listar();
+    alertas("Se ha registrado el usuario exitosamente!.", 1)
+    document.getElementById("contentModal").innerHTML = '';
+    //var myModal = new bootstrap.Modal(document.getElementById('modalUsuario'))
+    var myModalInstance = document.getElementById('modalUsuario')
+    var modal = bootstrap.Modal.getInstance(myModalInstance)
+    modal.hide();
+    //console.log(request.text())
+}
+
+function modalConfirmacion(texto, funcion){
+    document.getElementById("contentConfirmacion").innerHTML = cadena;
+    var myModal = new bootstrap.Modal(document.getElementById('modalConfirmacion'))
+    myModal.toggle();
+    var confirmar = document.getElementById("confirmar")
+    confirmar.onclick  = funcion
+}
